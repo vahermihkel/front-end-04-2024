@@ -35,3 +35,24 @@
   text-decoration: underline;
   background-color: maroon;
 }
+
+.linn {
+  font-size: 20px;
+}
+
+.linn:hover {
+  text-decoration: underline;
+  color: blueviolet;
+  cursor: pointer;
+}
+
+.linn-aktiivne {
+  font-size: 20px;
+  text-decoration: underline;
+  text-decoration-color: blueviolet;
+}
+
+.linn-aktiivne:hover {
+  color: blueviolet;
+  cursor: pointer;
+}

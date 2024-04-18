@@ -1,5 +1,6 @@
 import React from 'react'; //node_module
 import ReactDOM from 'react-dom/client'; //node_module
+import 'react-toastify/dist/ReactToastify.css';
 import './index.css'; // meie fail
 import App from './App'; // meie fail
 import { BrowserRouter } from "react-router-dom"; // node_module
