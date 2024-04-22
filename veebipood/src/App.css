@@ -2,6 +2,14 @@
   text-align: center;
 }
 
+.App-dark {
+  background-color: black;
+  text-align: center;
+  color: white;
+  min-height: 100vh;
+  /* vh --> view height (brauseri kõrgus) protsentides */
+}
+
 .pilt {
   height: 100px;
   /* width: 100px; */
@@ -55,4 +63,25 @@
 .linn-aktiivne:hover {
   color: blueviolet;
   cursor: pointer;
+}
+
+.mode-button {
+  height: 30px;
+  width: 30px;
+}
+
+.mode-button:hover {
+  cursor: pointer;
+  opacity: 70%;
+}
+
+.mode-button:active {
+  transform: scale(95%);
+}
+
+/* kui on peal .App-dark, siis tema
+sees olev .mode-button saab sellise
+CSSi */
+.App-dark .mode-button {
+  filter: brightness(0) invert(1);
 }
