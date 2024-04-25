@@ -75,6 +75,10 @@ function Tootajad() {
   // 5. 'M' tähega algavad
   // 6. Huvitav: Paarisarv tähti
 
+  // HALDA FAILIS
+  // Lisage üks lõppu juurde
+  // Kustutage
+
   return (
     <div>
       <button onClick={reset}>Originaalid tagasi</button>

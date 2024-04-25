@@ -28,10 +28,6 @@ function Menyy() {
         <button className="nupp">Ostukorv</button>
       </Link>
 
-      <Link to="/lisa-toode">
-        <button className="nupp">Lisa toode</button>
-      </Link>
-
       <Link to="/seaded">
         <button className="nupp">Seaded</button>
       </Link>
@@ -46,6 +42,28 @@ function Menyy() {
 
       <Link to="/tootajad">
         <button className="nupp">Töötajad</button>
+      </Link>
+
+      <br /><br />
+
+      <Link to="/lisa-toode">
+        <button className="nupp">Lisa toode</button>
+      </Link>
+
+      <Link to="/halda-esindused">
+        <button className="nupp">Halda esindusi</button>
+      </Link>
+
+      <Link to="/halda-hinnad">
+        <button className="nupp">Halda hindu</button>
+      </Link>
+
+      <Link to="/halda-tootajad">
+        <button className="nupp">Halda töötajaid</button>
+      </Link>
+
+      <Link to="/halda-tooted">
+        <button className="nupp">Halda tooteid</button>
       </Link>
     </div>
   )

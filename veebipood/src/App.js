@@ -14,6 +14,10 @@ import { useState } from "react";
 import Tooted from "./pages/Tooted";
 import Hinnad from "./pages/Hinnad";
 import Tootajad from "./pages/Tootajad";
+import HaldaEsindused from "./pages/HaldaEsindused";
+import HaldaHinnad from "./pages/HaldaHinnad";
+import HaldaTootajad from "./pages/HaldaTootajad";
+import HaldaTooted from "./pages/HaldaTooted";
 
 function App() {                        
   const [darkMode, setDarkMode] = useState(localStorage.getItem("isDarkTheme") === "true" ? true : false);
@@ -50,6 +54,10 @@ function App() {
         <Route path="tooted" element={ <Tooted /> }></Route>
         <Route path="hinnad" element={ <Hinnad /> }></Route>
         <Route path="tootajad" element={ <Tootajad /> }></Route>
+        <Route path="halda-esindused" element={ <HaldaEsindused /> }></Route>
+        <Route path="halda-hinnad" element={ <HaldaHinnad /> }></Route>
+        <Route path="halda-tootajad" element={ <HaldaTootajad /> }></Route>
+        <Route path="halda-tooted" element={ <HaldaTooted /> }></Route>
         <Route path="*" element={ <NotFound /> }></Route>
       </Routes>
     </div>
@@ -57,3 +65,13 @@ function App() {
 }
 
 export default App;
+
+// 25.04
+// 02.05
+// 06.05
+// 09.05
+// 13.05
+// 16.05
+// 20.05
+// 22.05
+// 24.05

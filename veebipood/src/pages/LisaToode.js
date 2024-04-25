@@ -1,5 +1,7 @@
 import React, { useRef, useState } from 'react'
 
+// KODUS: Toote faili lisamine
+
 function LisaToode() {
   const [sonum, muudaSonum] = useState("Lisa uus toode!");
   const luger = useRef(); // inputi lugemiseks. nameRef
