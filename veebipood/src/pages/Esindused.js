@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 function Esindused() {
   // let linn = "Tallinn"; tavaline JavaScript teeb nii (ei uuenda HTMLi)
   const [linn, muudaLinn] = useState("Tallinn"); // React teeb nii, tema vahetab olekuid
-  const [keskused, muudaKeskused] = useState(["Ülemiste", "Rocca al Mare", "Magistrali", "Vesse", "Kristiine", "Järveotsa"]);
+  const [keskused] = useState(["Ülemiste", "Rocca al Mare", "Magistrali", "Vesse", "Kristiine", "Järveotsa"]);
 
   // Keskuste koguarv
 

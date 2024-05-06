@@ -18,6 +18,14 @@ import HaldaEsindused from "./pages/HaldaEsindused";
 import HaldaHinnad from "./pages/HaldaHinnad";
 import HaldaTootajad from "./pages/HaldaTootajad";
 import HaldaTooted from "./pages/HaldaTooted";
+import YksToode from "./pages/YksToode";
+import YksHind from "./pages/YksHind";
+import YksTootaja from "./pages/YksTootaja";
+import YksEsindus from "./pages/YksEsindus";
+import MuudaToode from "./pages/MuudaToode";
+import MuudaHind from "./pages/MuudaHind";
+import MuudaTootaja from "./pages/MuudaTootaja";
+import MuudaEsindus from "./pages/MuudaEsindus";
 
 function App() {                        
   const [darkMode, setDarkMode] = useState(localStorage.getItem("isDarkTheme") === "true" ? true : false);
@@ -58,6 +66,14 @@ function App() {
         <Route path="halda-hinnad" element={ <HaldaHinnad /> }></Route>
         <Route path="halda-tootajad" element={ <HaldaTootajad /> }></Route>
         <Route path="halda-tooted" element={ <HaldaTooted /> }></Route>
+        <Route path="toode/:nimi" element={ <YksToode /> }></Route>
+        <Route path="hind/:summa" element={ <YksHind /> }></Route>
+        <Route path="tootaja" element={ <YksTootaja /> }></Route>
+        <Route path="esindus" element={ <YksEsindus /> }></Route>
+        <Route path="muuda-toode/:index" element={ <MuudaToode /> }></Route>
+        <Route path="muuda-hind/:index" element={ <MuudaHind /> }></Route>
+        <Route path="muuda-tootaja" element={ <MuudaTootaja /> }></Route>
+        <Route path="muuda-esindus" element={ <MuudaEsindus /> }></Route>
         <Route path="*" element={ <NotFound /> }></Route>
       </Routes>
     </div>
@@ -66,10 +82,16 @@ function App() {
 
 export default App;
 
+// Firebase-i üleslaadimiseks
+// npm run build   --> pakib failid kokku "build" kausta
+// firebase deploy   --> saadab kokku pakitud failid Firebase-i serverisse
+
+
 // 25.04
 // 02.05
-// 06.05
-// 09.05
+// 06.05 - * sorteerimine/filtreerimine õige asi, objektid
+// * kontroll kui ei ole õige number URLs
+// 09.05 - uus Eng projekt - tõlge, bootstrap UI Library
 // 13.05
 // 16.05
 // 20.05

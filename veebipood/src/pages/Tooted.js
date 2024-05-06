@@ -2,38 +2,41 @@ import React from "react";
 import { useState } from "react";
 import ostukorvJSON from "../data/ostukorv.json";
 import tootedFailist from "../data/tooted.json";
+import { Link } from "react-router-dom";
 
 function Tooted() {
   const [tooted, muudaTooted] = useState(tootedFailist.slice());
 
   const sorteeriAZ = () => {
-    tooted.sort((a, b) => a.localeCompare(b));
+    tooted.sort((a, b) => a.nimi.localeCompare(b.nimi));
     muudaTooted(tooted.slice());
   };
 
   const sorteeriZA = () => {
-    tooted.sort((a, b) => b.localeCompare(a));
+    tooted.sort((a, b) => b.nimi.localeCompare(a.nimi));
     muudaTooted(tooted.slice());
   };
 
   const sorteeriTahemargidVaiksemast = () => {
-    tooted.sort((a, b) => a.length - b.length);
+    tooted.sort((a, b) => a.nimi.length - b.nimi.length);
     muudaTooted(tooted.slice());
   };
 
   const sorteeriTahemargidKah = () => {
-    tooted.sort((a, b) => b.length - a.length);
+    tooted.sort((a, b) => b.nimi.length - a.nimi.length);
     muudaTooted(tooted.slice());
   };
 
   const sorteeriKolmasTähtAZ = () => {
-    tooted.sort((a, b) => a[2].localeCompare(b[2]));
+    tooted.sort((a, b) => a.nimi[2].localeCompare(b.nimi[2]));
     muudaTooted(tooted.slice());
   };
 
+  // KOJU: Hinna järgi järjekorda ühtepidi ja teistpidi
+
   const lisaOstukorvi = (toode) => {
     ostukorvJSON.push(toode);
-    alert("Edukalt lisatud: " + toode);
+    alert("Edukalt lisatud: " + toode.nimi);
     // ei muuda HTMLi (ei muuda tooteid), kui lisame ostukorvi
   }
 
@@ -62,10 +65,15 @@ function Tooted() {
         <span className="vastusText">tk</span>
         <br />
         <br />
-        {tooted.map((t) => (
-          <div>
-            {t}
-            <button onClick={() => lisaOstukorvi(t)}>Lisa ostukorvi</button>
+        {tooted.map((t, index) => (
+          <div key={index}>
+            <img className="pilt" src={t.pilt} alt="" />
+            <div>{t.nimi}</div>
+            <div>{t.hind} €</div>
+            <button disabled={t.aktiivne === false} onClick={() => lisaOstukorvi(t)}>Lisa ostukorvi</button>
+            <Link to={"/toode/" + t.nimi}>
+              Vaata lähemalt
+            </Link>
           </div>
         ))}
       </div>

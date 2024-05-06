@@ -85,3 +85,13 @@ CSSi */
 .App-dark .mode-button {
   filter: brightness(0) invert(1);
 }
+
+table {
+  margin-left: 10%;
+  margin-right: 10%;
+  width: 80%;
+}
+
+th, td {
+  border: 1px solid black;
+}

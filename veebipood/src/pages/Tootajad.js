@@ -39,10 +39,10 @@ function Tootajad() {
     muudaTootajad(tootajad.slice());
   }
 
-  const sorteeriKolmasTahtAZ = () => {
-    tootajad.sort((a,b) => a[2].localeCompare(b[2]));
-    muudaTootajad(tootajad.slice());
-  }
+  // const sorteeriKolmasTahtAZ = () => {
+  //   tootajad.sort((a,b) => a[2].localeCompare(b[2]));
+  //   muudaTootajad(tootajad.slice());
+  // }
 
   const filtreeriVaiksemKui5 = () => {
     // ["Coca", "Fanta", "Sprite"].filter();
@@ -79,8 +79,32 @@ function Tootajad() {
   // Lisage üks lõppu juurde
   // Kustutage
 
+  const kokku = () => {
+    // const --> ei luba võrdusmärgiga teda muuda
+    // let -> lubab muutujat otse võrdusmärgiga muuta
+    let summa = 0;
+    // summa = summa + 5;
+    // summa = summa + 5;
+    // summa = summa + 4;
+    // summa = summa + 3;
+    // summa = summa + 6;
+    //["Kaido", "Epp", "Maarja"].forEach()
+    // forEach("Kaido" =>  5  = 0 + 5  )
+    // forEach("Epp" =>    8  = 5 + 3  )
+    // forEach("Maarja" => 14 = 8 + 6  )
+    tootajad.forEach(t => summa = summa + t.length);
+    return summa;
+  }
+
+  // Kui teeme funktsiooni onClickiga:
+  // onClick={lisa}    VÕI     onClick{() => lisa()}
+
+  // Kui teeme funktsiooni väljakutse mitte onClickiga
+  // <div> {lisa()} </div>
+
   return (
     <div>
+      <div>Tähemärgid kokku: {kokku()}</div>
       <button onClick={reset}>Originaalid tagasi</button>
 
       <button onClick={sorteeriAZ}>Sorteeri A-Z</button>
