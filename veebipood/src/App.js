@@ -1,5 +1,6 @@
 // import logo from './logo.svg';
 import "./App.css";
+// võtab tüki sealt moodulist --> võimalik veel võtta
 import { Navigate, Route, Routes } from "react-router-dom";
 import Avaleht from "./pages/Avaleht";
 import Kinkekaart from "./pages/Kinkekaart";
@@ -10,12 +11,14 @@ import Menyy from "./components/Menyy";
 import LisaToode from "./pages/LisaToode";
 import Seaded from "./pages/Seaded";
 import NotFound from "./pages/NotFound";
+// võtab tüki sealt moodulist --> võimalik veel võtta
 import { useState } from "react";
 import Tooted from "./pages/Tooted";
 import Hinnad from "./pages/Hinnad";
 import Tootajad from "./pages/Tootajad";
 import HaldaEsindused from "./pages/HaldaEsindused";
 import HaldaHinnad from "./pages/HaldaHinnad";
+// ilma loogeliste sulgudeta võtab terve selle lehe/faili
 import HaldaTootajad from "./pages/HaldaTootajad";
 import HaldaTooted from "./pages/HaldaTooted";
 import YksToode from "./pages/YksToode";
@@ -26,6 +29,8 @@ import MuudaToode from "./pages/MuudaToode";
 import MuudaHind from "./pages/MuudaHind";
 import MuudaTootaja from "./pages/MuudaTootaja";
 import MuudaEsindus from "./pages/MuudaEsindus";
+import Shops from "./pages/Shops";
+import { ContactUs } from "./pages/ContactUs";
 
 function App() {                        
   const [darkMode, setDarkMode] = useState(localStorage.getItem("isDarkTheme") === "true" ? true : false);
@@ -74,7 +79,9 @@ function App() {
         <Route path="muuda-hind/:index" element={ <MuudaHind /> }></Route>
         <Route path="muuda-tootaja" element={ <MuudaTootaja /> }></Route>
         <Route path="muuda-esindus" element={ <MuudaEsindus /> }></Route>
-        <Route path="*" element={ <NotFound /> }></Route>
+        <Route path="shops" element={ <Shops /> } />
+        <Route path="contact" element={ <ContactUs /> } />
+        <Route path="*" element={ <NotFound /> } />
       </Routes>
     </div>
   );

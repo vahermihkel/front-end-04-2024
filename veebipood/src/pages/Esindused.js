@@ -19,6 +19,61 @@ function Esindused() {
   // 4. Filtreeri kellel on kolmas täht "i"
   // 5. Filtreeri kes lõppeb "e" tähega
 
+//   const filtreeri9Tahelised = () => {
+//     const vastus = TalesindusedFailist.filter(t => t.keskus.length === 9);
+//     const vastus2 = keskused2.filter(t => t.length === 9);
+//     const vastus3 = keskused3.filter(t => t.length === 9);
+//     const vastus4 = keskused4.filter(t => t.length === 9);
+//     muudaKeskused(vastus);
+//     muudaKeskused2(vastus2);
+//     muudaKeskused3(vastus3);
+//     muudaKeskused4(vastus4);
+// }
+
+//   const filtreeriVahemalt7 = () => {
+//     const vastus = TalesindusedFailist.filter(t => t.keskus.length >= 7);
+//     const vastus2 = keskused2.filter(t => t.length >= 7);
+//     const vastus3 = keskused3.filter(t => t.length >= 7);
+//     const vastus4 = keskused4.filter(t => t.length >= 7);
+//     muudaKeskused(vastus);
+//     muudaKeskused2(vastus2);
+//     muudaKeskused3(vastus3);
+//     muudaKeskused4(vastus4);
+// }
+
+//   const filtreeriISSisaldav = () => {
+//     const vastus = keskused.filter(t => t.keskus.includes("is"));
+//     const vastus2 = keskused2.filter(t => t.includes("is"));
+//     const vastus3 = keskused3.filter(t => t.includes("is"));
+//     const vastus4 = keskused4.filter(t => t.includes("is"));
+//     muudaKeskused(vastus);
+//     muudaKeskused2(vastus2);
+//     muudaKeskused3(vastus3);
+//     muudaKeskused4(vastus4);
+// }
+
+//   const filtreeriITaht3 = () => {
+//     const vastus = keskused.filter(name => name.keskus.charAt(2) === 'i');
+//     const vastus2 = keskused2.filter(name => name.charAt(2) === 'i');
+//     const vastus3 = keskused3.filter(name => name.charAt(2) === 'i');
+//     const vastus4 = keskused4.filter(name => name.charAt(2) === 'i');
+//     muudaKeskused(vastus);
+//     muudaKeskused2(vastus2);
+//     muudaKeskused3(vastus3);
+//     muudaKeskused4(vastus4);
+// }
+
+//   const filtreeriETahegaLop = () => {
+//     const vastus = keskused.filter(t => t.keskus.endsWith("e"));
+//     const vastus2 = keskused2.filter(t => t.endsWith("e"));
+//     const vastus3 = keskused3.filter(t => t.endsWith("e"));
+//     const vastus4 = keskused4.filter(t => t.endsWith("e"));
+//     muudaKeskused(vastus);
+//     muudaKeskused2(vastus2);
+//     muudaKeskused3(vastus3);
+//     muudaKeskused4(vastus4);
+// }
+
   // HALDAESINDUSED failis
   // 1. Tühjenda
   // 2. Võimalda teda ajutiselt kustutada

@@ -1,0 +1,14 @@
+{
+  "maintain-categories": "Halda kategooriaid",
+  "maintain-shops": "Halda poode",
+  "add-product": "Lisa toode",
+  "maintain-products": "Halda tooteid",
+  "nav": {
+    "admin": "Admin vaatesse",
+    "shops": "Meie poed",
+    "contact": "Kontakteeru meiega",
+    "cart": "Ostukorvi",
+    "login": "Logi sisse",
+    "signup": "Registreeru"
+  }
+}

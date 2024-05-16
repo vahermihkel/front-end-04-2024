@@ -44,6 +44,12 @@ function Ostukorv() {                          // 4tk
       muudaTooted(ostukorvFailist.slice()); 
     }
 
+    const kokku = () => {
+      let summa = 0;
+      tooted.forEach(t => summa = summa + t.hind);
+      return summa;
+    }
+
   return (
     <div>
         <Link to="/avaleht">Mine avalehele</Link>
@@ -68,6 +74,7 @@ function Ostukorv() {                          // 4tk
               <button onClick={() => lisa(t)}>Lisa lõppu juurde</button> 
             </div>)}
         </div>
+        <div>Kokku: {kokku()} €</div>
     </div>
   )
 }

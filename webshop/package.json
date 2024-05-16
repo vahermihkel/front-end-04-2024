@@ -1,21 +1,19 @@
 {
-  "name": "veebipood",
+  "name": "webshop",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@emailjs/browser": "^4.3.3",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "firebase": "^10.11.1",
-    "leaflet": "^1.9.4",
+    "bootstrap": "^5.3.3",
+    "i18next": "^23.11.4",
     "react": "^18.3.1",
+    "react-bootstrap": "^2.10.2",
     "react-dom": "^18.3.1",
-    "react-hot-toast": "^2.4.1",
-    "react-leaflet": "^4.2.1",
-    "react-router-dom": "^6.22.3",
+    "react-i18next": "^14.1.1",
+    "react-router-dom": "^6.23.1",
     "react-scripts": "5.0.1",
-    "react-toastify": "^10.0.5",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

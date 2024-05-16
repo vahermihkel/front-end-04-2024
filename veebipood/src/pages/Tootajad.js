@@ -63,17 +63,56 @@ function Tootajad() {
     muudaTootajad(vastus);
   }
 
-  // Sorteeri
-  // 1. Nupp kolmas täht A-Z
-  // 2. Teine täht A-Z
+  // // Sorteeri
+  // // 1. Nupp kolmas täht A-Z
+  // // 2. Teine täht A-Z
 
-  // Filtreeri
-  // 1. Täpselt 3 tähelised
-  // 2. Rohkem kui 5 tähelised
-  // 3. "ai" lühendit sisaldavad
-  // 4. Kellel on kolmas täht "i"
-  // 5. 'M' tähega algavad
-  // 6. Huvitav: Paarisarv tähti
+  // // Filtreeri
+  // // 1. Täpselt 3 tähelised
+  // // 2. Rohkem kui 5 tähelised
+  // // 3. "ai" lühendit sisaldavad
+  // // 4. Kellel on kolmas täht "i"
+  // // 5. 'M' tähega algavad
+  // // 6. Huvitav: Paarisarv tähti
+
+  // function filteeriAllaViis() {
+  //   const result = tootajadFailist.filter((töötaja) => töötaja.nimi.length < 5);
+  //   muudaTootajad(result);
+  // }
+  // function filteeriÜleViis() {
+  //   const result = tootajadFailist.filter((t) => t.nimi.length > 5);
+  //   muudaTootajad(result);
+  // }
+ 
+  // function filtreeriK() {
+  //   const result = tootajadFailist.filter((t) => t.nimi.startsWith("K") === true);
+  //   muudaTootajad(result);
+  // }
+ 
+  // function filtreeriM() {
+  //   const result = tootajadFailist.filter((t) => t.nimi.startsWith("M") === true);
+  //   muudaTootajad(result);
+  // }
+ 
+  // function filtreeriI() {
+  //   const result = tootajadFailist.filter((t) => t.nimi[2] === "i");
+  //   muudaTootajad(result);
+  // }
+ 
+  // function filteeriKolm() {
+  //   const result = tootajadFailist.filter((t) => t.nimi.length === 3);
+  //   muudaTootajad(result);
+  // }
+ 
+  // function filtreeriAI() {
+  //   const result = tootajadFailist.filter((t) => t.nimi.includes("ai") === true);
+  //   muudaTootajad(result);
+  // }
+ 
+  // function filtreeriPaarisTähti() {
+  //   const result = tootajadFailist.filter((t) => t.nimi.length % 2 === 0);
+  //   muudaTootajad(result);
+  // }
 
   // HALDA FAILIS
   // Lisage üks lõppu juurde

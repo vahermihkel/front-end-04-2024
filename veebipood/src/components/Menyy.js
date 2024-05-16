@@ -65,6 +65,14 @@ function Menyy() {
       <Link to="/halda-tooted">
         <button className="nupp">Halda tooteid</button>
       </Link>
+
+      <Link to="/shops">
+        <button className="nupp">Shops</button>
+      </Link>
+
+      <Link to="/contact">
+        <button className="nupp">Contact Us</button>
+      </Link>
     </div>
   )
 }

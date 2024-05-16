@@ -95,3 +95,21 @@ table {
 th, td {
   border: 1px solid black;
 }
+
+.aktiivne {
+  background-color: rgb(227, 241, 227);
+  /* border: 1px solid green !important; */
+}
+
+.mitteaktiivne {
+  background-color: rgb(238, 221, 221);
+  /* border: 1px solid red !important; */
+}
+
+.map {
+  height: 300px;
+  margin-left: 10%;
+  margin-right: 10%;
+  /* sama asi aga lühemalt-->   margin: 0 10% */
+  border-radius: 20px;
+}

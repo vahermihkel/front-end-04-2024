@@ -40,6 +40,20 @@ function Tooted() {
     // ei muuda HTMLi (ei muuda tooteid), kui lisame ostukorvi
   }
 
+  const reset = () => {
+    muudaTooted(tootedFailist.slice());
+  }
+
+  const filtreeriAktiivsed = () => {
+    const vastus = tootedFailist.filter(t => t.aktiivne === true);
+    muudaTooted(vastus);
+  }
+
+  const filtreeriOdavad = () => {
+    const vastus = tootedFailist.filter(t => t.hind < 40000);
+    muudaTooted(vastus);
+  }
+
   return (
     <div>
       <br />
@@ -59,6 +73,9 @@ function Tooted() {
         Sorteeri kolmandast tähest A-Z
       </button>
       <br />
+      <button onClick={reset}>Reset</button>
+      <button onClick={filtreeriAktiivsed}>Jäta alles aktiivsed</button>
+      <button onClick={filtreeriOdavad}>Jäta alles odavamad kui 40 000</button>
       <br />
       <div>
         <span className="vastusText">Töödete koguarv:</span> {tooted.length}{" "}
