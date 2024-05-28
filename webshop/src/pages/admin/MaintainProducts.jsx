@@ -1,26 +1,47 @@
-import React, { useRef } from 'react'
-import productsFromFile from "../../data/products.json";
+import React, { useEffect, useRef } from 'react'
+// import productsFromFile from "../../data/products.json";
 import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import "../../css/MaintainProducts.css";
+import styles from "../../css/MaintainProducts.module.css";
+import { Spinner } from 'react-bootstrap';
  
+// let isLoading = true;
+
 function MaintainProducts() {
-  const [products, setProducts] = useState(productsFromFile.slice());
+  const [products, setProducts] = useState([]);
   const searchRef = useRef();
+  const [dbProducts, setDbProducts] = useState([]);
+  const url = process.env.REACT_APP_PRODUCTS_DB_URL;
+  const [isLoading, setLoading] = useState(true);
+
+  useEffect(() => {
+    fetch(url)
+      .then(res => res.json())
+      .then(json => {
+        setProducts(json);
+        setDbProducts(json);
+        setLoading(false);
+        // isLoading = false;
+      })
+  }, [url]);
  
   const deleteProduct = (product) => {
-    const index = productsFromFile.indexOf(product);
-    productsFromFile.splice(index, 1);
+    const index = dbProducts.indexOf(product);
+    dbProducts.splice(index, 1);
     // setProducts(productsFromFile.slice());
     searchFromProducts();
   } 
 
   const searchFromProducts = () => {
-    const result = productsFromFile.filter(product => 
+    const result = dbProducts.filter(product => 
       product.title.toLowerCase().includes(searchRef.current.value.toLowerCase()) ||
       product.description.toLowerCase().includes(searchRef.current.value.toLowerCase())
     );
     setProducts(result);
+  }
+
+  if (isLoading) {
+    return <Spinner />
   }
  
   return (
@@ -41,8 +62,9 @@ function MaintainProducts() {
         </thead>
         <tbody>
           {products.map((product, index) => 
-             <tr key={index}> 
-             <td><img style={{width: "100px"}} src={product.image} alt="" /></td>
+          // KOJU:
+             <tr key={index} className={product.active ? styles.active : styles.inactive}> 
+             <td><img className={styles.picture} src={product.image} alt="" /></td>
              <td>{product.title}</td> 
              <td>{product.price}</td> 
              <td>{product.category}</td>

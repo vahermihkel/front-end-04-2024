@@ -11,7 +11,10 @@ function AdminHome() {
       <Button as={Link} to="/admin/maintain-shops" variant="secondary">{t('maintain-shops')}</Button>{' '}
       <Button as={Link} to="/admin/add-product" variant="success">{t('add-product')}</Button>{' '}
       <Button as={Link} to="/admin/maintain-products" variant="warning">{t('maintain-products')}</Button>{' '}
+      <Button as={Link} to="/admin/maintain-shops" variant="primary">{t('maintain-shops')}</Button>{' '}
+      <Button as={Link} to="/admin/maintain-pictures" variant="secondary">{t('maintain-pictures')}</Button>{' '}
       <Button as={Link} to="/admin/supplier" variant="info">{t('supplier')}</Button>{' '}
+      <Button as={Link} to="/admin/book-supplier" variant="info">{t('book-supplier')}</Button>{' '}
     </div>
   )
 }

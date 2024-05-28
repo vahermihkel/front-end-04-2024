@@ -1,49 +1,125 @@
-import React, { useState } from "react";
-import productsFromFile from "./../../data/products.json";
+import React, { useEffect, useState } from "react";
+// import productsFromFile from "./../../data/products.json";
 // import cart from "./../../data/cart.json";
-import { Link } from "react-router-dom";
+import styles from "../../css/HomePage.module.css";
+import Button from "@mui/material/Button";
+import CarouselGallery from "../../components/CarouselGallery";
+import { Spinner } from "react-bootstrap";
+import SortButtons from "../../components/home/SortButtons";
+import Product from "../../components/home/Product";
+import Card from "../../components/Card";
  
 function HomePage() {
-  const [products, setProducts] = useState(productsFromFile);
+  const [products, setProducts] = useState([]);
+  const [dbProducts, setDbProducts] = useState([]);
+  const [categories, setCategories] = useState([]);
+
+  const [isLoading, setLoading] = useState(true);
+  const url = process.env.REACT_APP_PRODUCTS_DB_URL;
+  const categoriesUrl = process.env.REACT_APP_CATEGORIES_DB_URL;
+
+  const [categoriesFromProducts, setCategoriesFromProducts] = useState([]);
+
+  useEffect(() => {
+    fetch(url)
+      .then(res => res.json())
+      .then(json => {
+        setProducts(json);
+        setDbProducts(json);
+        setLoading(false);
+        const result = [...new Set(json.map(product => product.category))];
+        setCategoriesFromProducts(result);
+      })
+  }, [url]);
+
+  useEffect(() => {
+    fetch(categoriesUrl)
+      .then(res => res.json())
+      .then(json => {
+        setCategories(json)
+      })
+  }, [categoriesUrl]);
  
-  function addToCart(product) {
-    const cartLS = JSON.parse(localStorage.getItem("cart")) || [];
-    // const index = cartLS.findIndex();
-    const found = cartLS.find(cp => cp.toode.id === product.id);
-    if (found !== undefined) { // index >= 0,   index !== -1
-      // suurendame kogust
-      found.kogus = found.kogus + 1;
-      //found.kogus += 1; // liida iseendale 1
-      //found.kogus++; // suurenda iseendale täpselt 1 võrra
-      // cartLS[index].kogus++;
-      // cartLS[index].kogus += 1;
-      // cartLS[index].kogus = cartLS[index].kogus + 1;
-    } else {
-      cartLS.push({"kogus": 1, "toode": product});
-    }
-    localStorage.setItem("cart", JSON.stringify(cartLS));
+ 
+  function filterByCategory(categoryClicked) {
+    // reset();
+    // console.log(products);
+    // setProducts(dbProducts); // muudab alles funktsiooni lõpus
+    // console.log(products);
+    const result = dbProducts.filter((p) => p.category === categoryClicked);
+    setProducts(result); 
   }
+
+  // const filterMens = () => {
+  //   const ansver = productsFromFile.filter(t => t.category.startsWith("men's"));
+  //   setProducts(ansver);
+  // }
  
-  // 1. võtame localStoragest          localStorage.getItem() || []
-  // 2. võtame jutumärgid maha         JSON.parse()
-  // 3. lisame võetule juurde          .push()
-  // 4. paneme jutumärgid tagasi       JSON.stringify()
-  // 5. paneme localStoragesse tagasi  localStorage.setItem()
+  // const filterWomen = () => {
+  //   const ansver = productsFromFile.filter(t => t.category.startsWith("women's"));
+  //   setProducts(ansver);
+  // }
  
+  // const filterJewel = () => {
+  //   const ansver = productsFromFile.filter(t => t.category === "jewelery");
+  //   setProducts(ansver);
+  // }
+ 
+  // const filterElectronic = () => {
+  //   const ansver = productsFromFile.filter(t => t.category.startsWith("electronic"));
+  //   setProducts(ansver);
+  // }
+ 
+  // function reset() {
+  //   setProducts(productsFromFile);
+  // }
+
+  
+ 
+  if (isLoading) {
+    return <Spinner />
+  }
+
   return (
     <div>
-      {products.map((product) => (
-        <div key={product.id}>
-          <img style={{ width: "100px" }} src={product.image} alt="" />
-          <div>{product.title}</div>
-          <div>{product.price.toFixed(2)} €</div>
-          <button onClick={() => addToCart(product)}>Add to Cart</button>
-          {/* <Link to={`/product/${product.title}`}> */}
-          <Link to={"/product/" + product.title.replaceAll(" ", "-").replaceAll(",", "").toLowerCase()}>
-            <button>View Details</button>
-          </Link>
-        </div>
-      ))}
+      <CarouselGallery />
+
+      <Card 
+        headerText={"Uuskasutatud seadmed"} 
+        contentText={"Vali targalt: uue ringi seade töötab nagu uus, aga säästab raha ja keskkonda."}
+        buttonText={"Vaatan lähemalt"} />
+
+      <SortButtons 
+        products={products} 
+        setProducts={setProducts} />
+
+      <br /><br />
+
+      {categories.map(category => 
+        <Button key={category.name} onClick={() => filterByCategory(category.name)}>
+          {category.name}
+        </Button>
+      )}
+
+      <br /><br />
+
+      {categoriesFromProducts.map(category => 
+        <Button key={category} onClick={() => filterByCategory(category)}>
+          {category}
+        </Button>
+      )}
+
+      {/* <Button onClick={() => filterByCategory("men's clothing")}>men's clothing</Button>
+      <Button onClick={() => filterByCategory("jewelery")}>jewelery</Button>
+      <Button onClick={() => filterByCategory("electronics")}>electronics</Button> */}
+
+      <div>Total products: {products.length}</div>
+
+      <div className={styles.products}>
+        {products.map((product) => (
+          <Product product={product} />
+        ))}
+      </div>
     </div>
   );
 }

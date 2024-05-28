@@ -1,17 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 // import productsFromCart from "../../data/cart.json";
- 
+import styles from "../../css/Cart.module.css"; 
+import ParcelMachines from '../../components/cart/ParcelMachines';
+import Payment from '../../components/cart/Payment';
+
 function Cart() {
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")) || []);
   // const [message, setMessage] = useState("Your cart is empty");
-  const [parcelmachines, setParcelmachines] = useState([]);
-
-  // uef
-  useEffect(() => {
-    fetch('https://www.omniva.ee/locations.json')
-      .then(response => response.json())
-      .then(json => setParcelmachines(json))
-  }, []);
+  
 
   const empty = () => {
     cart.splice(0);
@@ -56,21 +52,38 @@ function Cart() {
     cart.forEach(t => total = total + t.toode.price * t.kogus);
     return total.toFixed(2); // konverteerime sõnaks
   }
+
+  const productsSum = () => {
+    let total = 0;
+    cart.forEach(t => total = total + t.kogus);
+    return total; 
+  }
+
+  
+
+  // Kui HTMLs vahetame URLi: <Link to="">
+  // Kui Reacti JavaScriptis vahetame URLi const navigate = useNavigate()    navigate("")
+  // Kui tahame URLile liikuda mis on väljaspool meie rakendust     window.location.href = "http://err.ee"
  
   return (
     <div>
       <button onClick={empty}>Empty the cart</button>
       {cart.length > 0 ? (
         cart.map((product, index) =>
-          <div key={index}>
-            <img style={{ width: "100px" }} src={product.toode.image} alt="" /> 
-            <div>{product.toode.title}</div>
-            <div>{product.toode.price.toFixed(2)}</div>
-            <button onClick={() => decreaseQuantity(product)}>-</button>
-            <div>{product.kogus}</div>
-            <button onClick={() => increaseQuantity(product)}>+</button>
-            <div>{(product.toode.price * product.kogus).toFixed(2)}</div>
-            <button onClick={() => removeFromCart(index)}>x</button>
+          <div className={styles.product} key={index}>
+            <img className={styles.image} src={product.toode.image} alt="" /> 
+            <div className={styles.title}>{product.toode.title}</div>
+            <div className={styles.price}>{product.toode.price.toFixed(2)}</div>
+            {/* <button onClick={() => decreaseQuantity(product)}>-</button> */}
+            <div className={styles.quantity}>
+              <img className={styles.button} onClick={() => decreaseQuantity(product)} src="/minus.png" alt="" />
+              <div>{product.kogus} tk</div>
+              {/* <button onClick={() => increaseQuantity(product)}>+</button> */}
+              <img className={styles.button} onClick={() => increaseQuantity(product)} src="/plus.png" alt="" />
+            </div>
+            <div className={styles.sum}>{(product.toode.price * product.kogus).toFixed(2)}</div>
+            {/* <button onClick={() => removeFromCart(index)}>x</button> */}
+            <img className={styles.button} onClick={() => removeFromCart(index)} src="/remove.png" alt="" />
             {/* <button onClick={() => addToEnd(product)}>Add to the end</button> */}
           </div>
         )
@@ -78,16 +91,20 @@ function Cart() {
         <div>Your cart is empty</div>
       )}
 
-      <span>Number of items in the cart: </span> 
-      {cart.length} 
-      <span> pcs</span>
-      <br />
-      <div>Price total: {cartSum()} €</div>
-      <select>
-      {parcelmachines
-        .filter(pm => pm.A0_NAME === "EE")
-        .map(pm => <option>{pm.NAME}</option>)}
-      </select>
+      {cart.length > 0 &&
+        // <span className={styles.cart__bottom}>
+        // <span className={styles.cartBottom}>
+        // <span className={styles['cart-bottom']}>
+        <span className={styles.cartBottom}>
+          <span>Number of different items in the cart: </span> 
+          {cart.length} 
+          <span> pcs</span>
+          <br />
+          <div>Products total: {productsSum()} €</div>
+          <div>Price total: {cartSum()} pcs</div>
+          <Payment sum={cartSum()} />
+          <ParcelMachines />
+        </span>}
     </div>
   );
 }

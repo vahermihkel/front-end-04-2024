@@ -14,8 +14,10 @@ import HomePage from "./pages/global/HomePage";
 import NotFound from "./pages/global/NotFound";
 import Shops from "./pages/global/Shops";
 import SingleProduct from "./pages/global/SingleProduct";
-import ContactUs from './pages/global/ContactUs';
+import {ContactUs} from './pages/global/ContactUs';
 import Supplier from './pages/admin/Supplier';
+import BookSupplier from './pages/admin/BookSupplier';
+import MaintainPictures from './pages/admin/MaintainPictures';
 
 function App() {
   return (
@@ -24,7 +26,7 @@ function App() {
 
       <Routes>
         <Route path="" element={<HomePage />} />
-        <Route path="contactus" element={<ContactUs />} />
+        <Route path="contact" element={<ContactUs />} />
         <Route path="shops" element={<Shops />} />
         <Route path="cart" element={<Cart />} />
         <Route path="product/:title" element={<SingleProduct />} />
@@ -38,7 +40,9 @@ function App() {
           element={<MaintainCategories />}
         />
         <Route path="admin/maintain-shops" element={<MaintainShops />} />
+        <Route path="admin/maintain-pictures" element={<MaintainPictures />} />
         <Route path="admin/supplier" element={<Supplier />} />
+        <Route path="admin/book-supplier" element={<BookSupplier />} />
  
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
@@ -54,6 +58,13 @@ export default App;
 // 13.05
 // 16.05 Ada läheb 11.45 ära   kogused ostukorvis, ostukorvis pikad numbrid
 // Tarjetiga: 1. API päringuid 2. Kodused 3. Edit
-// 20.05 kujundus, API päringud
-// 22.05 Tarjet läheb 11.45 ära
-// 24.05
+// 20.05 kujundus, API päringud  ---> kodus Firebase
+// 22.05 CSS moodulid, Firebase andmebaas
+// 24.05 HomePages ja MaintainProductsis toodete võtmine
+//        Vaja teha 2 listi -> 1.mida näitan välja 2.kust võtan
+//        Loader
+//        Edit-s ei muuda -> pärast refreshi muudab
+//        Võtame kategooriad avalehel kasutusele, Addis, Editis
+
+// let tüüpi muutuja rerenderdamisel
+// useEffecti dependency array võimekust näidata

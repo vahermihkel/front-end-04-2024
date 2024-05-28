@@ -24,6 +24,8 @@ function SingleProduct() {
         <div>Rating: {product.rating.rate} €</div>
         <div>Category: {product.category} €</div>
         <div>Description: {product.description}</div>
+        <div>Rating: {product.rating.rate}</div>
+
     </div>
   )
 }

@@ -1,28 +1,25 @@
 import React, { useEffect, useState } from 'react'
 import Payment from '../../components/cart/Payment';
 
-function Supplier() {
+function BookSupplier() {
   const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    fetch("https://fakestoreapi.com/products")
+    fetch("https://api.itbook.store/1.0/search/mongodb")
       .then(res => res.json())
-      .then(body => setProducts(body))
+      .then(body => setProducts(body.books))
   }, []);
 
   return (
     <div>
-      <Payment sum={345} />
+      <Payment sum={Math.random() * 300} />
       <table>
         <thead>
           <tr>
             <th>Picture</th>
             <th>Title</th>
             <th>Price</th>
-            <th>Category</th>
-            <th>Rating</th>
-            <th>Rate count</th>
-            <th>Description</th>
+            <th>Subtitle</th>
           </tr>
         </thead>
         <tbody>
@@ -31,10 +28,7 @@ function Supplier() {
              <td><img style={{width: "100px"}} src={product.image} alt="" /></td>
              <td>{product.title}</td> 
              <td>{product.price}</td> 
-             <td>{product.category}</td>
-             <td>{product.rating.rate}</td>
-             <td>{product.rating.count}</td>
-             <td>{product.description}</td>
+             <td>{product.subtitle}</td> 
             </tr>
     )}
         </tbody>
@@ -43,4 +37,4 @@ function Supplier() {
   )
 }
 
-export default Supplier
+export default BookSupplier

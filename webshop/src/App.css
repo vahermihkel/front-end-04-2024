@@ -16,3 +16,23 @@
 .lang:active {
   padding: 1px;
 }
+
+/* .bg-body-tertiary {
+  background-color: aqua !important;
+} */
+
+/* .carousel {
+  height: 200px !important;
+} */
+
+.carousel img {
+  /* width: 500px; */
+  height: 200px;
+}
+
+.card {
+  background-color: lightblue;
+  border-radius: 20px;
+  width: 40%;
+  margin: 5%;
+}
