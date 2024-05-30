@@ -10,5 +10,8 @@
     "cart": "To cart view",
     "login": "Log in",
     "signup": "Sign up"
+  },
+  "error": {
+    "passwords-do-not-match": "Password do not match"
   }
 }

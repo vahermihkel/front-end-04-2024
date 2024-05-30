@@ -1,9 +1,19 @@
-import React from 'react'
-
+import React from "react";
+import AuthForm from "./AuthForm";
+ 
 function Login() {
   return (
-    <div>Login</div>
-  )
+    <AuthForm 
+      headerText="Login"
+      isUsername={false}
+      isConfirmPassword={false}
+      footerText="Don't have an account? "
+      linkUrl="/signup"
+      linkText="Signup"
+      isRememberMe={true}
+      url={"signInWithPassword"}
+      />
+  );
 }
-
-export default Login
+ 
+export default Login;
