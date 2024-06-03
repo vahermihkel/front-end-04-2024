@@ -1,5 +1,5 @@
 import './App.css';
-import { Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import NavigationBar from './components/NavigationBar';
 import AddProduct from "./pages/admin/AddProduct";
 import AdminHome from "./pages/admin/AdminHome";
@@ -18,8 +18,12 @@ import {ContactUs} from './pages/global/ContactUs';
 import Supplier from './pages/admin/Supplier';
 import BookSupplier from './pages/admin/BookSupplier';
 import MaintainPictures from './pages/admin/MaintainPictures';
+import { useContext } from 'react';
+import { AuthContext } from './store/AuthContext';
 
 function App() {
+  const {loggedIn} = useContext(AuthContext);
+ 
   return (
     <div className="App">
       <NavigationBar />
@@ -31,21 +35,31 @@ function App() {
         <Route path="cart" element={<Cart />} />
         <Route path="product/:title" element={<SingleProduct />} />
  
-        <Route path="admin" element={<AdminHome />} />
-        <Route path="admin/add-product" element={<AddProduct />} />
-        <Route path="admin/edit-product/:productId" element={<EditProduct />} />
-        <Route path="admin/maintain-products" element={<MaintainProducts />} />
-        <Route
-          path="admin/maintain-categories"
-          element={<MaintainCategories />}
-        />
-        <Route path="admin/maintain-shops" element={<MaintainShops />} />
-        <Route path="admin/maintain-pictures" element={<MaintainPictures />} />
-        <Route path="admin/supplier" element={<Supplier />} />
-        <Route path="admin/book-supplier" element={<BookSupplier />} />
+        {loggedIn === true && 
+          <>
+            <Route path="admin" element={<AdminHome />} />
+            <Route path="admin/add-product" element={<AddProduct />} />
+            <Route path="admin/edit-product/:productId" element={<EditProduct />} />
+            <Route path="admin/maintain-products" element={<MaintainProducts />} />
+            <Route
+              path="admin/maintain-categories"
+              element={<MaintainCategories />}
+            />
+            <Route path="admin/maintain-shops" element={<MaintainShops />} />
+            <Route path="admin/maintain-pictures" element={<MaintainPictures />} />
+            <Route path="admin/supplier" element={<Supplier />} />
+            <Route path="admin/book-supplier" element={<BookSupplier />} />
+          </>}
+
+        {loggedIn === false &&
+            // <Route path="admin/*" element={<Login />} />
+            <Route path="admin/*" element={ <Navigate to={"/login"} /> } />
+        }
  
+        {/* loggedIn === false, siis näita neid */}
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
+        {/* loggedIn === true, siis manuaalselt /login või /signup lehele minnes, suuna /admin */}
  
         <Route path="*" element={<NotFound />} />
       </Routes>
@@ -68,3 +82,26 @@ export default App;
 
 // let tüüpi muutuja rerenderdamisel
 // useEffecti dependency array võimekust näidata
+
+// 03.06
+// 07.06 TW proovitöö üle vaatamine, TypeScript, Redux
+// 10.06 useContext sisaldav proovitöö üle vaatamine
+// 20.06 --> lõpuprojekti esitlemine / täiendamine  2ak/h
+//              10.00-11.30   React + Firebase
+
+// TypeScript -> lisakiht JavaScriptile, tundmaks ära tüüpe
+// Redux -> Contexti edasiarendus
+
+// useMemo()
+// useReducer()
+
+// * Ostukorvis poleks hind muudetav -> võtame tooted andmebaasist
+
+// useQueryParams()
+// * Makse järelkontroll
+// * CSS best-practices
+
+
+// * Sisselogimise / registreerumise puhul küsime Firebase-lt kes on sisselogitud
+//      reaalselt tokenit saata Firebase-i
+// * Toodet lisades võtab pildi arvutist

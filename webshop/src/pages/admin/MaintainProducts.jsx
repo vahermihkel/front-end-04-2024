@@ -29,6 +29,7 @@ function MaintainProducts() {
     const index = dbProducts.indexOf(product);
     dbProducts.splice(index, 1);
     // setProducts(productsFromFile.slice());
+    fetch(url, {"method": "PUT", "body": JSON.stringify(dbProducts)});
     searchFromProducts();
   } 
 

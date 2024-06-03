@@ -16,7 +16,7 @@ function CarouselGallery() {
     <Carousel data-bs-theme="dark">
       
       {pictures.map(p => 
-      <Carousel.Item>
+      <Carousel.Item key={p.url}>
         <img
           src={p.url}
           alt={p.alt}

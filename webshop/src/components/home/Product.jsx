@@ -1,9 +1,12 @@
 import { Link } from "react-router-dom";
 import styles from "../../css/HomePage.module.css";
 import Button from "@mui/material/Button";
+import { useContext } from "react";
+import { CartSumContext } from "../../store/CartSumContext";
 
         // lühendatud props-st --> object destructuring
 function Product({product}) {
+  const { setCartSum } = useContext(CartSumContext);
 
   function addToCart(product) {
     const cartLS = JSON.parse(localStorage.getItem("cart")) || [];
@@ -20,6 +23,10 @@ function Product({product}) {
     } else {
       cartLS.push({"kogus": 1, "toode": product});
     }
+    // setCartSum(Number(cartSum) + product.price);
+    let total = 0;
+    cartLS.forEach(t => total = total + t.toode.price * t.kogus);
+    setCartSum(total.toFixed(2));
     localStorage.setItem("cart", JSON.stringify(cartLS));
   }
  
@@ -30,7 +37,7 @@ function Product({product}) {
   // 5. paneme localStoragesse tagasi  localStorage.setItem()
 
   return (
-    <div className={styles.product} key={product.id}>
+    <div className={styles.product}>
       <img style={{ width: "100px" }} src={product.image} alt="" />
       <div>{product.title.length > 50 ? product.title.substring(0,50) + " ..." : product.title}</div>
       <div>{product.price.toFixed(2)} €</div>

@@ -1,6 +1,7 @@
-import React, { useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import React, { useContext, useRef, useState } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import { useTranslation } from "react-i18next";
+import { AuthContext } from '../../store/AuthContext';
 
 function AuthForm(props) {
   const usernameRef = useRef();
@@ -10,6 +11,8 @@ function AuthForm(props) {
   const rememberMeRef = useRef();
   const [message, setMessage] = useState("");
   const { t } = useTranslation();
+  const {setLoggedIn} = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const url = "https://identitytoolkit.googleapis.com/v1/accounts:" + props.url + "?key=" + process.env.REACT_APP_API_KEY;
 
@@ -40,7 +43,15 @@ function AuthForm(props) {
           console.log(body.error.message);
           setMessage(body.error.message);
         } else {
-          setMessage("Edukalt sisselogitud/registreerutud");
+          // setMessage("Edukalt sisselogitud/registreerutud");
+          if (rememberMeRef.current !== undefined &&
+            rememberMeRef.current.checked === true
+          ) {
+            localStorage.setItem("email", emailRef.current.value);
+          }
+          setLoggedIn(true);
+          navigate("/admin");
+          sessionStorage.setItem("token", body.idToken);
         }
       })
 
@@ -77,6 +88,7 @@ function AuthForm(props) {
                     id="email"
                     placeholder="Enter email"
                     ref={emailRef}
+                    defaultValue={props.isRememberMe === true ? localStorage.getItem("email") : undefined}
                   />
                 </div>
                 <div className="form-group">

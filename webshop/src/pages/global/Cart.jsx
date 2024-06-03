@@ -1,18 +1,20 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 // import productsFromCart from "../../data/cart.json";
 import styles from "../../css/Cart.module.css"; 
 import ParcelMachines from '../../components/cart/ParcelMachines';
 import Payment from '../../components/cart/Payment';
+import { CartSumContext } from '../../store/CartSumContext';
 
 function Cart() {
   const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")) || []);
   // const [message, setMessage] = useState("Your cart is empty");
-  
+  const { setCartSum } = useContext(CartSumContext);
 
   const empty = () => {
     cart.splice(0);
     setCart(cart.slice()); // muudab HTMLi
     localStorage.setItem("cart", JSON.stringify(cart)); // salvestab
+    setCartSum(cartSum()); // muudab NavigationBaris kogusummat
   }
 
   const decreaseQuantity = (product) => {
@@ -27,18 +29,21 @@ function Cart() {
     // product.kogus = product.kogus - 1;   -- on selle lühendatud variant
     setCart(cart.slice()); // muudab HTMLi
     localStorage.setItem("cart", JSON.stringify(cart)); // salvestab
+    setCartSum(cartSum());
   }
 
   const increaseQuantity = (product) => {
     product.kogus++;
     setCart(cart.slice());
     localStorage.setItem("cart", JSON.stringify(cart));
+    setCartSum(cartSum());
   }
  
   const removeFromCart = (jrknr) => {
     cart.splice(jrknr, 1);  
     setCart(cart.slice()); 
     localStorage.setItem("cart", JSON.stringify(cart));
+    setCartSum(cartSum());
   }
   
   // const addToEnd = (product) => {
