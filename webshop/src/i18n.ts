@@ -22,13 +22,13 @@ const checkLanguage = () => {
     localStorage.setItem("lang", "en");
     return "en";
   }
-  if (["en", "et"].includes(localStorage.getItem("lang")) === false) { 
+  if (["en", "et"].includes(localStorage.getItem("lang") || "") === false) { 
     // kasutaja ise paneb localStorage-sse vale
     localStorage.setItem("lang", "en");
     return "en";
   }
   // nupuvajutuse järgne võtmine
-  return localStorage.getItem("lang");
+  return localStorage.getItem("lang") || "";
 }
 
 i18n

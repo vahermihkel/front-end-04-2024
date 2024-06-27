@@ -1,14 +1,22 @@
 import { Link } from "react-router-dom";
 import styles from "../../css/HomePage.module.css";
 import Button from "@mui/material/Button";
+// import {Button as BButton} from 'react-bootstrap'
 import { useContext } from "react";
 import { CartSumContext } from "../../store/CartSumContext";
+import { useDispatch } from "react-redux";
+import { increment as counterIncrement } from '../../store/counterSlice';
+import { increment } from '../../store/cartTotalSlice';
 
         // lühendatud props-st --> object destructuring
 function Product({product}) {
   const { setCartSum } = useContext(CartSumContext);
+  const dispatch = useDispatch();
 
   function addToCart(product) {
+    dispatch(counterIncrement());
+    dispatch(increment());
+
     const cartLS = JSON.parse(localStorage.getItem("cart")) || [];
     // const index = cartLS.findIndex();
     const found = cartLS.find(cp => cp.toode.id === product.id);

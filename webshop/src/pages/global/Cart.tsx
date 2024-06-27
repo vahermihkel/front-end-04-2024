@@ -1,25 +1,61 @@
-import React, { useContext, useState } from 'react'
+import { useCallback, useContext, useEffect, useMemo, useState } from 'react'
 // import productsFromCart from "../../data/cart.json";
 import styles from "../../css/Cart.module.css"; 
 import ParcelMachines from '../../components/cart/ParcelMachines';
 import Payment from '../../components/cart/Payment';
 import { CartSumContext } from '../../store/CartSumContext';
+import { useDispatch } from 'react-redux';
+import { incrementByAmount } from '../../store/counterSlice';
+import { decrement, decrementByAmount, increment, zero } from '../../store/cartTotalSlice';
+// import { Product } from '../../models/Product';
+import { CartProduct } from '../../models/CartProduct';
+import { Product } from '../../models/Product';
 
 function Cart() {
-  const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")) || []);
+  // const key = process.env.REACT_APP_KEY || "";
+  const cartLS: CartProduct[] = useMemo(() => JSON.parse(localStorage.getItem("cart") || "[]"), []);
+  const [cart, setCart] = useState<CartProduct[]>([]);
   // const [message, setMessage] = useState("Your cart is empty");
   const { setCartSum } = useContext(CartSumContext);
+  const dispatch = useDispatch(); // kui dispatch toimub, siis reduxi muutuja muutub
+  const url = process.env.REACT_APP_PRODUCTS_DB_URL;
+  // const [products, setProducts] = useState<Product[]>([]);
+
+  const findCartProductsWithDbProducts = useCallback((json: Product[]) => {
+    const cartWithOriginalProducts: CartProduct[] = cartLS.map((cartProduct) => 
+      ({
+          kogus: cartProduct.kogus, 
+          toode: json.find(p => p.id === cartProduct.toode.id)
+        })
+      ).filter((cp): cp is CartProduct => cp.toode !== undefined);
+    setCart(cartWithOriginalProducts);
+  }, [cartLS])
+
+  useEffect(() => {
+    if (url === undefined) {
+      return;
+    }
+    fetch(url)
+      .then(res => res.json())
+      .then((json: Product[]) => {
+        findCartProductsWithDbProducts(json);
+      });
+  }, [url, findCartProductsWithDbProducts]);
 
   const empty = () => {
+    dispatch(zero());
+
     cart.splice(0);
     setCart(cart.slice()); // muudab HTMLi
     localStorage.setItem("cart", JSON.stringify(cart)); // salvestab
     setCartSum(cartSum()); // muudab NavigationBaris kogusummat
   }
 
-  const decreaseQuantity = (product) => {
+  const decreaseQuantity = (product: CartProduct) => {
+    dispatch(decrement());
+
     product.kogus--;
-    if (product.kogus === 0) {
+    if (product.kogus <= 0) {
       // järjekorranumbri leidmiseks:
       // findIndex -> leiab mingi omaduse alusel
       // indexOf -> kui on teada terve toode
@@ -32,14 +68,19 @@ function Cart() {
     setCartSum(cartSum());
   }
 
-  const increaseQuantity = (product) => {
+  const increaseQuantity = (product: CartProduct) => {
+    dispatch(increment());
+
     product.kogus++;
     setCart(cart.slice());
     localStorage.setItem("cart", JSON.stringify(cart));
     setCartSum(cartSum());
   }
  
-  const removeFromCart = (jrknr) => {
+  const removeFromCart = (jrknr: number) => {
+    dispatch(incrementByAmount(cart[jrknr].kogus));
+    dispatch(decrementByAmount(cart[jrknr].kogus));
+
     cart.splice(jrknr, 1);  
     setCart(cart.slice()); 
     localStorage.setItem("cart", JSON.stringify(cart));

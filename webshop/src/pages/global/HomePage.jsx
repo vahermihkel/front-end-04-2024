@@ -8,8 +8,28 @@ import { Spinner } from "react-bootstrap";
 import SortButtons from "../../components/home/SortButtons";
 import Product from "../../components/home/Product";
 import Card from "../../components/Card";
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
  
 function HomePage() {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
   const [products, setProducts] = useState([]);
   const [dbProducts, setDbProducts] = useState([]);
   const [categories, setCategories] = useState([]);
@@ -24,11 +44,8 @@ function HomePage() {
     fetch(url)
       .then(res => res.json())
       .then(json => {
-        setProducts(json);
-        setDbProducts(json);
-        setLoading(false);
-        const result = [...new Set(json.map(product => product.category))];
-        setCategoriesFromProducts(result);
+        setProductsFromDb(json);
+        findCategoriesByProduct(json);
       })
   }, [url]);
 
@@ -39,6 +56,17 @@ function HomePage() {
         setCategories(json)
       })
   }, [categoriesUrl]);
+
+  const setProductsFromDb = (json) => {
+    setProducts(json);
+    setDbProducts(json);
+    setLoading(false);
+  }
+
+  const findCategoriesByProduct = (json) => {
+    const result = [...new Set(json.map(product => product.category))];
+      setCategoriesFromProducts(result);
+  }
  
  
   function filterByCategory(categoryClicked) {
@@ -82,6 +110,24 @@ function HomePage() {
 
   return (
     <div>
+      <Button onClick={handleOpen}>Open modal</Button>
+<Modal
+  open={open}
+  onClose={handleClose}
+  aria-labelledby="modal-modal-title"
+  aria-describedby="modal-modal-description"
+>
+  <Box sx={style}>
+    <Typography id="modal-modal-title" variant="h6" component="h2">
+      Text in a modal
+    </Typography>
+    <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+      Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+    </Typography>
+  </Box>
+</Modal>
+
+
       <CarouselGallery />
 
       <Card 

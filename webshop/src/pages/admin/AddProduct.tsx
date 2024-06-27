@@ -1,21 +1,26 @@
 import React, { useEffect, useRef, useState } from 'react'
+import { Category } from '../../models/Category';
+import { Product } from '../../models/Product';
 // import productsFromFile from "../../data/products.json";
 
 function AddProduct() {
-  const idRef = useRef();
-  const titleRef = useRef();
-  const priceRef = useRef();
-  const imageRef = useRef();
-  const categoryRef = useRef();
-  const descriptionRef = useRef();
+  const idRef = useRef<HTMLInputElement>(null);
+  const titleRef = useRef<HTMLInputElement>(null);
+  const priceRef = useRef<HTMLInputElement>(null);
+  const imageRef = useRef<HTMLInputElement>(null);
+  const categoryRef = useRef<HTMLSelectElement>(null);
+  const descriptionRef = useRef<HTMLInputElement>(null);
   // const ratingRef = useRef();
   const url = process.env.REACT_APP_PRODUCTS_DB_URL;
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
 
-  const [categories, setCategories] = useState([]);
+  const [categories, setCategories] = useState<Category[]>([]);
   const categoriesUrl = process.env.REACT_APP_CATEGORIES_DB_URL;
 
   useEffect(() => {
+    if (categoriesUrl === undefined) {
+      return;
+    }
     fetch(categoriesUrl)
       .then(res => res.json())
       .then(json => {
@@ -24,12 +29,23 @@ function AddProduct() {
   }, [categoriesUrl]);
 
   useEffect(() => {
+    if (url === undefined) {
+      return;
+    }
     fetch(url)
       .then(res => res.json())
       .then(json => setProducts(json || []));
   }, [url]);
 
   const addProduct = () => {
+    if (
+      idRef.current === null || titleRef.current === null || 
+      priceRef.current === null || categoryRef.current === null || 
+      imageRef.current === null || descriptionRef.current === null
+    ) {
+      return;
+    }
+
     const newProduct = {
       "id": Number(idRef.current.value),
       "title": titleRef.current.value, 
@@ -44,6 +60,9 @@ function AddProduct() {
       "description": descriptionRef.current.value,
     };
     products.push(newProduct);
+    if (url === undefined) {
+      return;
+    }
     fetch(url, {"method": "PUT", "body": JSON.stringify(products)});
  
     idRef.current.value = "";
@@ -55,7 +74,17 @@ function AddProduct() {
     descriptionRef.current.value = "";
   }
 
+  const [idUnique, setIdUnique] = useState(true);
   // ID unikaalsuse kontroll
+  const checkIdUniqueness = () => {
+    const idInput = idRef.current;
+    if (idInput === null) {
+      return;
+    }
+
+    const result = products.find((p) => p.id === Number(idInput.value));
+    setIdUnique(result === undefined);
+  };
 
   return (
     <div>

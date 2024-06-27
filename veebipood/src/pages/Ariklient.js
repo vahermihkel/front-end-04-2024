@@ -8,13 +8,26 @@ import GarantiiTeostamine from '../components/GarantiiTeostamine'
 import GarantiiEiKuulu from '../components/GarantiiEiKuulu'
 import Tarbija from '../components/Tarbija'
 import Defekt from '../components/Defekt'
+// import { gsap } from "gsap";// GSAP
+// import { ScrollToPlugin } from "gsap/ScrollToPlugin"; // GSAP
+// import { ScrollSmoother } from 'gsap'
 
 function Ariklient() {
+  // gsap.registerPlugin(ScrollToPlugin);
+
+  // ScrollSmoother.create({
+  //   smooth: 1, // how long (in seconds) it takes to "catch up" to the native scroll position
+  //   effects: true, // looks for data-speed and data-lag attributes on elements
+  //   smoothTouch: 0.1, // much shorter smoothing time on touch devices (default is NO smoothing on touch devices)
+  // });
+
+
   return (
     <div>
       Garantii tingimused
 GARANTII TINGIMUSED:
 Salvesta .pdf kujul siit
+{/* <button onClick={() => ScrollSmoother.scrollTo("#4p")}>4.peatükk</button> */}
 <br />
 <Yldist />
 <GarantiiAeg />

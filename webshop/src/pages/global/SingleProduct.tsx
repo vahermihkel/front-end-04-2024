@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { Spinner } from 'react-bootstrap';
 import { useParams } from 'react-router-dom'
-import productsFromFile from "../../data/products.json";
+import { Product } from '../../models/Product';
+// import productsFromFile from "../../data/products.json";
  
 // Coca-cola 2L
 // Coca-cola-2L
@@ -8,9 +10,28 @@ import productsFromFile from "../../data/products.json";
 
 function SingleProduct() {
     const {title} = useParams();
-    const product = productsFromFile.find(t => 
+    const [products, setProducts] = useState<Product[]>([]);
+    const [isLoading, setLoading] = useState(true);
+    const url = process.env.REACT_APP_PRODUCTS_DB_URL;
+    const product = products.find(t => 
       t.title.replaceAll(" ", "-").replaceAll(",", "").toLowerCase() === title
     );
+
+    useEffect(() => {
+      if (url === undefined) {
+        return;
+      }
+      fetch(url)
+        .then(res => res.json())
+        .then(json => {
+          setProducts(json || []);
+          setLoading(false);
+        });
+    }, [url]);
+  
+    if (isLoading) {
+      return <Spinner />
+    }
  
     if (product === undefined) {
       return <div>Product not found</div>

@@ -1,6 +1,10 @@
 import React from 'react'
 
-function Payment(props) {
+type PaymentInterface = {
+  sum: string
+}
+
+function Payment(props: PaymentInterface) {
   
   const pay = () => {
     // vahetult enne maksmist, paneme tellimuse andmebaasi, maksmata kujul
@@ -13,7 +17,7 @@ function Payment(props) {
       "timestamp": new Date(),
       "amount": props.sum,
       "order_reference": Math.random() * 99999999,
-      "customer_url": "https://err.ee",
+      "customer_url": "https://webshop.web.app", // PANGE ENDA URL
       "api_username": "92ddcfab96e34a5f"
     };
     const paymentHeaders = {

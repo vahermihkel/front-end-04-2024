@@ -1,13 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { Spinner } from 'react-bootstrap';
+import { ParcelMachine } from '../../models/ParcelMachine';
 
 function ParcelMachines() {
-  const [parcelmachines, setParcelmachines] = useState([]);
-  const [dbParcelmachines, setDbParcelmachines] = useState([]);
-  const [selectedPM, setSelectedPM] = useState("");
-  const pmRef = useRef();
-  const pmSearchRef = useRef();
-  const [isLoading, setLoading] = useState(true);
+  const [parcelmachines, setParcelmachines] = useState<ParcelMachine[]>([]);
+  const [dbParcelmachines, setDbParcelmachines] = useState<ParcelMachine[]>([]);
+  const [selectedPM, setSelectedPM] = useState<string>("");
+  const pmRef = useRef<HTMLSelectElement>(null);
+  const pmSearchRef = useRef<HTMLInputElement>(null);
+  const [isLoading, setLoading] = useState<boolean>(true);
  
   // uef --> kohe lehele tulles tehakse API päring
   useEffect(() => {
@@ -21,14 +22,23 @@ function ParcelMachines() {
   }, []);
 
   function selectPM() {
+    if (pmRef.current === null || pmSearchRef.current === null) {
+      return;
+    }
+
     setSelectedPM(pmRef.current.value);
     pmSearchRef.current.value = "";
     searchFromPMs();
   }
 
   function searchFromPMs() {
+    const pmSearchInput = pmSearchRef.current;
+    if (pmSearchInput === null) {
+      return;
+    }
+
     const result = dbParcelmachines.filter(pm => 
-      pm.NAME.toLowerCase().includes(pmSearchRef.current.value.toLowerCase())
+      pm.NAME.toLowerCase().includes(pmSearchInput.value.toLowerCase())
     );
     setParcelmachines(result);
   }
